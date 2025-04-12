@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://trokhimchuk.ru/sitemap.xml
