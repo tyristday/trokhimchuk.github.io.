@@ -1,203 +1,206 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>TROKHIMCHUK GROUP</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <style>
-    .timer {
-        padding-top: 20px;
-        font-size: 14px;
-        color: #00ffff;
-        font-family: monospace;
-        text-align: center;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TROKHIMCHUK GROUP</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #000;
+      color: #fff;
     }
-    .timer-label {
-        font-size: 12px;
-        color: #666;
-        margin-top: 5px;
-        text-align: center;
+
+    header {
+      text-align: center;
+      padding: 60px 20px 20px;
     }
-        body {
-            margin: 0;
-            background-color: #0d0d0d;
-            color: white;
-            font-family: Arial, sans-serif;
-        }
-        header, section {
-            padding: 60px 20px;
-            text-align: center;
-        }
-        h1, h2 {
-            margin-bottom: 20px;
-        }
-        .hero {
-            font-size: 18px;
-            color: #888;
-        }
-        .about img, .merch img, .stickers img {
-            max-width: 100%;
-            border-radius: 12px;
-            margin-bottom: 0; /* убран отступ снизу у изображения */
-        }
-        .btn {
-            display: inline-block;
-            padding: 12px 24px;
-            background-color: #ffffff10;
-            color: #00bcd4;
-            border: 1px solid #00bcd4;
-            border-radius: 6px;
-            text-decoration: none;
-            margin-top: 20px;
-        }
-        .contact {
-            font-size: 14px;
-            color: #777;
-        }
-        footer {
-            padding: 30px 20px;
-            font-size: 14px;
-            text-align: center;
-            background-color: #000;
-            color: #555;
-        }
-        .founder {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 60px 20px;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        .founder img {
-            max-width: 250px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-        }
-        .founder-text {
-            text-align: left;
-            max-width: 700px;
-        }
-    </style>
+
+    .title {
+      font-size: 42px;
+      letter-spacing: 2px;
+      font-weight: bold;
+    }
+
+    .tagline {
+      color: #aaa;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 20px;
+      background-color: #111;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #222;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: #00ffff;
+    }
+
+    section {
+      padding: 60px 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .bio {
+      display: flex;
+      flex-direction: row;
+      gap: 30px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .bio img {
+      width: 280px;
+      border-radius: 12px;
+    }
+
+    .bio-text h2 {
+      margin-top: 0;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 13px;
+      color: #666;
+      padding: 40px 20px;
+      border-top: 1px solid #222;
+    }
+  </style>
 </head>
 <body>
-
-
-<div class="timer">
-    <div id="countdown">[ загрузка... ]</div>
-    <div class="timer-label">этот таймер отсчитывает нечто большее, чем просто время...</div>
-</div>
-
-<script>
-    const countdownEl = document.getElementById("countdown");
-    const targetDate = new Date("2030-06-01T00:00:00");
-
-    function updateCountdown() {
-        const now = new Date();
-        let diff = targetDate - now;
-
-        if (diff <= 0) {
-            countdownEl.innerText = "[ 00 лет : 00 мес : 00 дн : 00 ч : 00 м : 00 с ]";
-            return;
-        }
-
-        let seconds = Math.floor(diff / 1000) % 60;
-        let minutes = Math.floor(diff / 1000 / 60) % 60;
-        let hours = Math.floor(diff / 1000 / 60 / 60) % 24;
-        let days = Math.floor(diff / 1000 / 60 / 60 / 24);
-        let months = Math.floor(days / 30.4375) % 12;
-        let years = Math.floor(days / 365.25);
-        days = days - Math.floor(years * 365.25) - Math.floor(months * 30.4375);
-
-        function pad(n) {
-            return n < 10 ? "0" + n : n;
-        }
-
-        countdownEl.innerText = ` ${pad(years)} лет : ${pad(months)} мес : ${pad(days)} дн : ${pad(hours)} ч : ${pad(minutes)} м : ${pad(seconds)} с `;
-    }
-
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-</script>
-
-<style>
-    .timer {
-        padding-top: 20px;
-        font-size: 14px;
-        color: #00ffff;
-        font-family: monospace;
-        text-align: center;
-    }
-    .timer-label {
-        font-size: 12px;
-        color: #666;
-        margin-top: 5px;
-        text-align: center;
-    }
-    .timer {
-        padding-top: 20px;
-        font-size: 14px;
-        color: #00ffff;
-        font-family: monospace;
-    }
-    .timer-label {
-        font-size: 12px;
-        color: #666;
-        margin-top: 5px;
-    }
-</style>
-
-<header>
-    <h1>TROKHIMCHUK GROUP</h1>
-    <div class="hero">Анонимность. Кибербезопасность. Искусственный интеллект.</div>
-</header>
-
-<section class="about">
-    <img src="Office.png" alt="Офис компании TROKHIMCHUK GROUP">
-</section>
-
-<section class="about" style="padding-top: 20px;">
-    <h2>О компании</h2>
-    <p>TROKHIMCHUK GROUP — закрытая технологическая структура, создающая Telegram-ботов, AI-платформы и автоматизированные системы. Мы стоим за кибербезопасность, цифровой суверенитет и независимость. Вся деятельность компании направлена на развитие защищённых цифровых инструментов для частных клиентов, организаций и автономных систем.</p>
-</section>
-
-<section class="founder">
-    <img src="founder.jpeg" alt="Андрей Трохимчук">
-    <div class="founder-text">
-        <h2>Андрей Трохимчук</h2>
-        <p>Андрей Трохимчук — основатель и глава компании TROKHIMCHUK GROUP. Он начал путь в сфере информационных технологий с раннего возраста и быстро стал одним из самых перспективных молодых разработчиков в области кибербезопасности, телеграм-ботов и нейросетевых систем.</p>
-        <p>Под его руководством TROKHIMCHUK GROUP выросла в уникальную независимую цифровую структуру, работающую вне стандартных рамок и ориентированную на закрытые разработки, цифровую анонимность и технологический суверенитет. Основной фокус — на создании инструментов, которые невозможно контролировать извне.</p>
-        <a class="btn" href="https://t.me/trokhimchuk_group" target="_blank">Связаться</a>
+  <header>
+    <div class="title">TROKHIMCHUK GROUP</div>
+    <div class="tagline">Анонимность. Искусственный интеллект. Защищённые системы.</div>
+    <div style="margin-top: 30px;">
+      <img src="office.jpg" alt="Офис компании" style="width: 100%; max-width: 900px; border-radius: 12px;" />
     </div>
-</section>
+  </header>
 
-<section class="merch">
-    <h2>Фирменный мерч</h2>
-    <img src="merch.png" alt="Мерч T-GROUP">
-    <a class="btn" href="https://t.me/trokhimchuk_group" target="_blank">Заказать</a>
-</section>
+  <nav class="main-nav">
+    <a href="#about">О компании</a>
+    <a href="#founder">Автор</a>
+    <a href="#services">Услуги</a>
+    <a href="#visual">Визуал</a>
+    <a href="#community">Сообщество</a>
+    <a href="#projects">Проекты</a>
+    <a href="#contacts">Контакты</a>
+  </nav>
 
-<section class="stickers">
-    <h2>Стикеры Telegram</h2>
-    <img src="stickers.jpeg" alt="Стикерпак T-GROUP">
-    <a class="btn" href="https://t.me/trokhimchuk_group" target="_blank">Скачать</a>
-</section>
+  <section id="about">
+    <h2>О компании</h2>
+    <p>Мы — команда молодых технологических энтузиастов, объединённых идеей создать независимую цифровую инфраструктуру нового поколения.</p>
+    <p>
+      TROKHIMCHUK GROUP — независимая технологическая структура, основанная в 2019 году. Компания разрабатывает Telegram-ботов, внедряет нейросетевые решения и создаёт платформы для анонимной и автономной работы в цифровом пространстве.
+    </p>
+    <p>
+      Мы не раскрываем состав команды и не храним пользовательские данные. Все проекты ведутся в закрытом режиме. В приоритете — технологический суверенитет, безопасность, автоматизация и цифровая независимость.
+    </p>
+    <p>
+      TROKHIMCHUK GROUP — это среда, в которой человек контролирует систему, а не наоборот.
+    </p>
+  </section>
 
-<section class="order">
-    <h2>Сделать заказ</h2>
-    <p>Оставьте заявку на разработку бота, систему автоматизации или мерч.</p>
-    <a class="btn" href="https://t.me/trokhimchuk_group" target="_blank">Открыть Telegram</a>
-</section>
+  <section id="founder">
+    <div class="bio">
+      <img src="avatar.jpg" alt="Основатель в маске" />
+      <div class="bio-text">
+        <h2>Основатель и руководитель компании TROKHIMCHUK GROUP</h2>
+        <p>
+          Андрей Трохимчук — российский IT-специалист и предприниматель, основатель компании TROKHIMCHUK GROUP. С раннего возраста проявлял интерес к программированию, цифровым технологиям и системам автоматизации.
+        </p>
+        <p>
+          Активно начал заниматься разработкой в 2019 году — в период пандемии COVID-19. В том же году основал TROKHIMCHUK GROUP — закрытую технологическую структуру, специализирующуюся на создании Telegram-ботов, AI-сервисов и защищённых платформ для работы в сети. Активно работает над внедрением решений, позволяющих пользователям сохранять контроль над своими данными. В своей деятельности придерживается принципов технологического суверенитета, киберэтики и полной цифровой независимости.
+        </p>
+      </div>
+    </div>
+  </section>
 
-<section class="contact">
-    <p>Москва-Сити, Башня Федерация<br>
-    info@trokhimchuk.ai</p>
-</section>
+  <section id="services">
+    <h2>Услуги</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+      <div style="background: #111; border-radius: 10px; padding: 20px; text-align: center;">
+        <img src="bot.jpg" alt="Telegram-боты" style="width: 100%; border-radius: 8px;">
+        <p>Разработка Telegram-ботов любой сложности</p>
+        <a href="https://t.me/tyrist_day" target="_blank" style="display: inline-block; border: 2px solid #00ffff; color: #00ffff; background: transparent; font-weight: bold; padding: 10px 20px; border-radius: 30px; text-decoration: none; margin-top: 10px;">Заказать</a>
+      </div>
+      <div style="background: #111; border-radius: 10px; padding: 20px; text-align: center;">
+        <img src="ai.jpg" alt="AI-решения" style="width: 100%; border-radius: 8px;">
+        <p>AI-решения и нейросетевые инструменты</p>
+        <a href="https://t.me/tyrist_day" target="_blank" style="display: inline-block; border: 2px solid #00ffff; color: #00ffff; background: transparent; font-weight: bold; padding: 10px 20px; border-radius: 30px; text-decoration: none; margin-top: 10px;">Заказать</a>
+      </div>
+      <div style="background: #111; border-radius: 10px; padding: 20px; text-align: center;">
+        <img src="automation.jpg" alt="Автоматизация" style="width: 100%; border-radius: 8px;">
+        <p>Автоматизация процессов под ключ</p>
+        <a href="https://t.me/tyrist_day" target="_blank" style="display: inline-block; border: 2px solid #00ffff; color: #00ffff; background: transparent; font-weight: bold; padding: 10px 20px; border-radius: 30px; text-decoration: none; margin-top: 10px;">Заказать</a>
+      </div>
+      <div style="background: #111; border-radius: 10px; padding: 20px; text-align: center;">
+        <img src="privacy.jpg" alt="Анонимность" style="width: 100%; border-radius: 8px;">
+        <p>Системы цифровой анонимности</p>
+        <a href="https://t.me/tyrist_day" target="_blank" style="display: inline-block; border: 2px solid #00ffff; color: #00ffff; background: transparent; font-weight: bold; padding: 10px 20px; border-radius: 30px; text-decoration: none; margin-top: 10px;">Заказать</a>
+      </div>
+    </div>
+  </section>
 
-<footer>
-    © 2025 TROKHIMCHUK GROUP — Все права защищены
-</footer>
+  <section id="visual">
+    <h2>Визуал и мерч</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+      <div style="flex: 1; min-width: 250px; background: #111; border-radius: 10px; padding: 20px; text-align: center;">
+        <img src="stickers.jpg" alt="Стикеры" style="width: 100%; border-radius: 8px;">
+        <p>Фирменные стикеры для Telegram</p>
+        <a href="https://t.me/tyrist_day" target="_blank" style="display: inline-block; border: 2px solid #00ffff; color: #00ffff; background: transparent; font-weight: bold; padding: 10px 20px; border-radius: 30px; text-decoration: none; margin-top: 10px;">Заказать</a>
+      </div>
+      <div style="flex: 1; min-width: 250px; background: #111; border-radius: 10px; padding: 20px; text-align: center;">
+        <img src="merch.jpg" alt="Мерч" style="width: 100%; border-radius: 8px;">
+        <p>Фирменные худи и блокноты</p>
+        <a href="https://t.me/tyrist_day" target="_blank" style="display: inline-block; border: 2px solid #00ffff; color: #00ffff; background: transparent; font-weight: bold; padding: 10px 20px; border-radius: 30px; text-decoration: none; margin-top: 10px;">Заказать</a>
+      </div>
+    </div>
+    <!-- Превью товаров можно вставить позже -->
+  </section>
 
+  <section id="community">
+    <h2>Сообщество</h2>
+    <p>Здесь будут публиковаться фото, визуальные сходки и активности TROKHIMCHUK GROUP. Улица, архитектура, дрифт, чёрные худи и код.</p>
+  </section>
+
+  <section id="projects">
+    <h2>Проекты</h2>
+    <p style="max-width: 700px; margin: 0 auto; text-align: center;">
+      Все проекты TROKHIMCHUK GROUP выполняются в закрытом режиме. Подробности доступны только по индивидуальному запросу.
+    </p>
+    <div style="text-align: center; margin-top: 30px;">
+      <a href="https://t.me/tyrist_day" target="_blank" style="display: inline-block; border: 2px solid #00ffff; color: #00ffff; background: transparent; font-weight: bold; padding: 10px 20px; border-radius: 30px; text-decoration: none; margin-top: 10px;">Запросить доступ</a>
+    </div>
+  </section>
+    </div>
+  </section>
+
+  <section id="contacts">
+    <h2>Контакты</h2>
+    <p>Email: info@trokhimchuk.ru</p>
+    <p>Telegram: @tyrist_day</p>
+    <p>Телефон: +7 (930) 808-44-04</p>
+    <p>Адрес: Москва, ул. Дубининская, д. 53, офис 221</p>
+  </section>
+
+  <div class="footer">
+    © 2019–2025 TROKHIMCHUK GROUP — Все права защищены
+  </div>
 </body>
 </html>
