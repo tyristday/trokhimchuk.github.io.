@@ -1,246 +1,356 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TROKHIMCHUK GROUP</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TROKHIMCHUK GROUP — Cyberpunk</title>
+  <meta name="description" content="TROKHIMCHUK GROUP — IT‑гигант: боты, автоматизация, кибербезопасность, продукты на ИИ." />
+  <meta name="theme-color" content="#0b0f14" />
+
+  <!-- Cyber/tech fonts (safe fallbacks if CDN недоступен) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
   <style>
-    * {
-      box-sizing: border-box;
+    :root {
+      --bg: #0b0f14;              /* глухой графит */
+      --bg-2: #0f141b;            /* чуть светлее для градиентов */
+      --fg: #e6f7ff;              /* почти белый холодный */
+      --muted: #9fb3c8;           /* подписи */
+      --accent: #00e5ff;          /* бирюзовый неон */
+      --accent-2: #00ffd5;        /* бирюзовый светлее */
+      --matrix: #00ff9c;          /* цвет "кода" */
+      --card: rgba(255,255,255,0.04);
+      --card-brd: rgba(0,229,255,0.25);
+      --glass: rgba(9,16,22,0.65);
+      --shadow: 0 10px 30px rgba(0, 229, 255, 0.08), 0 6px 12px rgba(0,0,0,0.35);
     }
 
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
     body {
       margin: 0;
-      font-family: 'Arial', sans-serif;
-      background: #000;
-      color: #ccc;
-      position: relative;
+      font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      color: var(--fg);
+      background: radial-gradient(1200px 600px at 20% 0%, #0d1621 0%, var(--bg) 60%),
+                  linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+      overflow-x: hidden;
     }
 
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: repeating-linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0.01) 0px,
-        rgba(255, 255, 255, 0.01) 1px,
-        transparent 1px,
-        transparent 4px
-      );
-      animation: flicker 3s infinite;
-      z-index: -1;
+    /* Matrix canvas covers body */
+    #matrix-bg {
+      position: fixed; inset: 0; width: 100%; height: 100%;
+      z-index: -2; display: block; background: transparent;
     }
+    /* dark veil over matrix so контент читабелен */
+    .veil { position: fixed; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.55)); z-index: -1; }
 
-    @keyframes flicker {
-      0% { opacity: 0.05; }
-      50% { opacity: 0.1; }
-      100% { opacity: 0.05; }
-    }
+    a { color: inherit; text-decoration: none; }
 
-    header {
-      text-align: center;
-      padding: 60px 20px 20px;
-    }
+    .container { width: min(1200px, 92vw); margin: 0 auto; }
 
-    .title {
-      font-size: 42px;
-      letter-spacing: 2px;
-      font-weight: bold;
+    /* NAV */
+    .nav {
+      position: sticky; top: 0; z-index: 10;
+      backdrop-filter: saturate(140%) blur(10px);
+      background: linear-gradient(180deg, rgba(11,15,20,0.85) 0%, rgba(11,15,20,0.45) 100%);
+      border-bottom: 1px solid rgba(0,229,255,0.08);
     }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
+    .brand {
+      display: flex; flex-direction: column; line-height: 1; letter-spacing: .04em;
+      text-shadow: 0 0 24px rgba(0,229,255,.18);
+    }
+    .brand .top { font-family: 'Orbitron', sans-serif; font-weight: 800; font-size: clamp(22px, 3.2vw, 34px); color: #fff; }
+    .brand .bottom { font-family: 'Orbitron', sans-serif; font-weight: 800; font-size: clamp(11px, 1.6vw, 16px); color: var(--accent); margin-top: 2px; }
 
-    .tagline {
-      color: #888;
-      font-size: 16px;
-      margin-top: 10px;
+    .nav a.btn {
+      padding: 10px 16px; border: 1px solid var(--card-brd); border-radius: 12px;
+      background: linear-gradient(180deg, rgba(0,229,255,0.10), rgba(0,229,255,0.02));
+      box-shadow: var(--shadow);
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+      font-weight: 600; letter-spacing: .03em;
     }
+    .nav a.btn:hover { transform: translateY(-1px); border-color: var(--accent); box-shadow: 0 12px 26px rgba(0,229,255,0.15); }
 
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      padding: 20px;
-      background-color: #111;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      border-bottom: 1px solid #222;
-    }
+    /* HERO */
+    .hero { padding: min(12vh, 120px) 0 min(10vh, 100px); position: relative; }
+    .hero-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(20px, 4vw, 48px); align-items: center; }
+    @media (max-width: 960px) { .hero-grid { grid-template-columns: 1fr; } }
 
-    nav a {
-      color: #ccc;
-      text-decoration: none;
-      font-size: 14px;
-    }
+    .kicker { color: var(--accent); font-weight: 700; letter-spacing: .18em; font-size: 12px; text-transform: uppercase; }
+    h1 { margin: 10px 0 16px; font-family: 'Orbitron', sans-serif; font-weight: 800; font-size: clamp(30px, 5vw, 54px); line-height: 1.05; }
+    .sub { color: var(--muted); font-size: clamp(14px, 1.4vw, 16px); max-width: 56ch; }
 
-    nav a:hover {
-      color: #00ffff;
+    .cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 26px; }
+    .btn-primary {
+      background: radial-gradient(120% 120% at 50% 0%, rgba(0,229,255,0.25) 0%, rgba(0,229,255,0.10) 40%, rgba(0,229,255,0.04) 100%),
+                  linear-gradient(180deg, rgba(0,229,255,0.30), rgba(0,229,255,0.10));
+      border: 1px solid var(--accent);
+      padding: 14px 18px; border-radius: 14px; font-weight: 800; letter-spacing: .04em;
+      box-shadow: 0 8px 26px rgba(0,229,255,0.12);
+      transition: transform .2s ease, box-shadow .2s ease;
     }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(0,229,255,0.22); }
+    .btn-ghost { border: 1px solid var(--card-brd); padding: 14px 18px; border-radius: 14px; background: var(--card); }
 
-    section {
-      padding: 60px 20px;
-      max-width: 1000px;
-      margin: 0 auto;
-      background: rgba(20, 20, 20, 0.6);
-      border-radius: 12px;
-      margin-bottom: 40px;
+    .stat-bar {
+      margin-top: 34px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
     }
+    @media (max-width: 680px) { .stat-bar { grid-template-columns: 1fr 1fr; } }
+    .stat {
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border: 1px solid var(--card-brd); border-radius: 16px; padding: 14px 16px; backdrop-filter: blur(8px);
+    }
+    .stat .num { font-family: 'Orbitron', sans-serif; font-size: 22px; font-weight: 800; color: var(--accent-2); }
+    .stat .cap { color: var(--muted); font-size: 12px; margin-top: 4px; }
 
-    .bio {
-      display: flex;
-      flex-direction: row;
-      gap: 30px;
-      align-items: center;
-      flex-wrap: wrap;
+    .hero-card {
+      border: 1px solid var(--card-brd); border-radius: 20px; padding: 18px; background: var(--glass);
+      box-shadow: var(--shadow);
     }
+    .chip { display: inline-flex; align-items: center; gap: 8px; border: 1px dashed rgba(0,229,255,0.35); padding: 8px 12px; border-radius: 999px; font-size: 12px; color: var(--muted); }
+    .chip b { color: var(--accent-2); }
 
-    .bio img {
-      width: 280px;
-      border-radius: 12px;
+    .grid-tiles { margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .tile {
+      border: 1px solid rgba(0,229,255,0.18); border-radius: 16px; padding: 16px; background: linear-gradient(180deg, rgba(0,229,255,0.06), rgba(0,229,255,0.02));
+      min-height: 96px; display: flex; flex-direction: column; justify-content: space-between;
     }
+    .tile h4 { font-family: 'Orbitron', sans-serif; margin: 0 0 6px; font-size: 16px; }
+    .tile p { margin: 0; color: var(--muted); font-size: 13px; }
 
-    .bio-text {
-      flex: 1;
-      min-width: 250px;
-    }
+    /* SECTIONS */
+    section { padding: 64px 0; }
+    .sec-head { display:flex; justify-content:space-between; align-items:end; margin-bottom: 20px; }
+    .sec-head h2 { font-family: 'Orbitron', sans-serif; font-size: clamp(22px, 3.4vw, 32px); margin: 0; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    @media (max-width: 980px) { .cards { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 640px) { .cards { grid-template-columns: 1fr; } }
 
-    .bio-text h2 {
-      margin-top: 0;
+    .card {
+      position: relative; border: 1px solid var(--card-brd); border-radius: 18px; padding: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      overflow: hidden; box-shadow: var(--shadow);
     }
+    .card:before { content: ""; position: absolute; inset: 0; background: radial-gradient(400px 200px at 10% 0%, rgba(0,229,255,0.10), transparent 60%); pointer-events: none; }
+    .card h3 { font-family: 'Orbitron', sans-serif; margin: 0 0 8px; font-size: 18px; }
+    .card p { margin: 0 0 14px; color: var(--muted); font-size: 14px; }
+    .card a { font-weight: 700; color: var(--accent-2); }
 
-    .footer {
-      text-align: center;
-      font-size: 13px;
-      color: #666;
-      padding: 40px 20px;
-      border-top: 1px solid #222;
-    }
+    /* FOOTER */
+    footer { padding: 26px 0 40px; border-top: 1px solid rgba(0,229,255,0.10); color: var(--muted); font-size: 13px; }
 
-    a {
-      color: #bbb;
-    }
+    /* Neon separators */
+    .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(0,229,255,0.35), transparent); margin: 12px 0 18px; }
   </style>
 </head>
 <body>
-  <header>
-    <div class="title">TROKHIMCHUK GROUP</div>
-    <div class="tagline">Анонимность. Искусственный интеллект. Защищённые системы.</div>
-    <div style="margin-top: 30px;">
-      <img src="Office.png" alt="Офис компании" style="width: 100%; max-width: 900px; border-radius: 12px;" />
+  <canvas id="matrix-bg"></canvas>
+  <div class="veil"></div>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="#" class="brand" aria-label="TROKHIMCHUK GROUP home">
+        <span class="top">TROKHIMCHUK</span>
+        <span class="bottom">GROUP</span>
+      </a>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <a class="btn" href="#products">Продукты</a>
+        <a class="btn" href="#services">Сервисы</a>
+        <a class="btn" href="#contact">Связаться</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="kicker">ИТ‑ГИГАНТ / КИБЕРПАНК‑ЭСТЕТИКА</div>
+        <h1>Инфраструктура для скорости: боты, ИИ‑системы, кибербезопасность</h1>
+        <p class="sub">Мы строим прикладные решения уровня предприятия: от телеграм‑ботов и внутренних CRM до защищённых конвейеров данных и автоматизации процессов. Стиль — киберпанк, скорость — корпоративная.</p>
+        <div class="cta-row">
+          <a href="#contact" class="btn-primary">Запросить консультацию</a>
+          <a href="#products" class="btn-ghost">Смотреть продукты</a>
+        </div>
+        <div class="stat-bar">
+          <div class="stat"><div class="num">24/7</div><div class="cap">поддержка критичных процессов</div></div>
+          <div class="stat"><div class="num">99.9%</div><div class="cap">SLA на прод‑сервисы</div></div>
+          <div class="stat"><div class="num"><span id="years">2019</span>→</div><div class="cap">опыт в продакшене</div></div>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <div class="chip">▲ <b>TROKHIMCHUK GROUP</b> • cyber‑stack</div>
+        <div class="divider"></div>
+        <div class="grid-tiles">
+          <div class="tile">
+            <h4>AI‑боты и автопроцессы</h4>
+            <p>Telegram, интеграции, SQLite/SQL, очереди, отчёты.</p>
+            <a href="#products">Подробнее →</a>
+          </div>
+          <div class="tile">
+            <h4>Кибербезопасность</h4>
+            <p>Аудит, hardening, оповещения, обучение персонала.</p>
+            <a href="#services">Услуги →</a>
+          </div>
+          <div class="tile">
+            <h4>Интеграции с Excel/1C</h4>
+            <p>Бесшовные пайплайны: Excel → SQL → TG/BI.</p>
+            <a href="#services">Кейсы →</a>
+          </div>
+          <div class="tile">
+            <h4>Медиа‑инфраструктура</h4>
+            <p>Контент‑конвейеры, шорт‑видео, автопостинг, аналитикум.</p>
+            <a href="#products">Модуль →</a>
+          </div>
+        </div>
+      </aside>
     </div>
   </header>
 
-  <nav class="main-nav">
-    <a href="#about">О компании</a>
-    <a href="#founder">Автор</a>
-    <a href="#services">Услуги</a>
-    <a href="#visual">Визуал</a>
-    <a href="#community">Сообщество</a>
-    <a href="#projects">Проекты</a>
-    <a href="#contacts">Контакты</a>
-  </nav>
-
-  <section id="about">
-    <h2>О компании</h2>
-    <p>
-      TROKHIMCHUK GROUP — независимая технологическая структура, основанная в 2019 году. Компания разрабатывает Telegram-ботов, внедряет нейросетевые решения и создаёт платформы для анонимной и автономной работы в цифровом пространстве.
-    </p>
-    <p>
-      Мы не раскрываем состав команды и не храним пользовательские данные. Все проекты ведутся в закрытом режиме. В приоритете — технологический суверенитет, безопасность, автоматизация и цифровая независимость.
-    </p>
-    <p>
-      TROKHIMCHUK GROUP — это среда, в которой человек контролирует систему, а не наоборот.
-    </p>
-  </section>
-
-  <section id="founder">
-    <div class="bio">
-      <img src="avatar.jpeg" alt="Основатель в маске" />
-      <div class="bio-text">
-        <h2>Основатель и руководитель компании TROKHIMCHUK GROUP</h2>
-        <p>
-          Андрей Трохимчук — российский IT-специалист, основатель компании TROKHIMCHUK GROUP. С раннего возраста проявлял интерес к программированию, цифровым технологиям и системам автоматизации.
-        </p>
-        <p>
-          Активно начал заниматься разработкой в 2019 году — в период пандемии COVID-19. В том же году основал TROKHIMCHUK GROUP — закрытую технологическую структуру, специализирующуюся на создании Telegram-ботов, AI-сервисов и защищённых платформ для работы в сети. Активно работает над внедрением решений, позволяющих пользователям сохранять контроль над своими данными. В своей деятельности придерживается принципов технологического суверенитета, киберэтики и полной цифровой независимости.
-        </p>
+  <!-- PRODUCTS -->
+  <section id="products">
+    <div class="container">
+      <div class="sec-head">
+        <h2>Продукты</h2>
+        <a class="btn" href="#contact">Запросить демо</a>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <h3>Academy Bot Suite</h3>
+          <p>Расписания, опросы, учёт дежурств, меню, оповещения. SQLite/SQL ядро, очереди, роль‑модели.</p>
+          <a href="#contact">Получить доступ →</a>
+        </article>
+        <article class="card">
+          <h3>SKOOLBOARD</h3>
+          <p>Автономное ПО для интерактивных досок: чистая «школьная доска», офлайн‑режим, быстрые шорткаты.</p>
+          <a href="#contact">Скачать →</a>
+        </article>
+        <article class="card">
+          <h3>VORTEX (NFT)</h3>
+          <p>Коллекция «вихрей»: бренд‑активы, права использования, интеграции с каналами.</p>
+          <a href="#contact">Подробнее →</a>
+        </article>
       </div>
     </div>
   </section>
 
-    <section id="services">More actions
-    <h2>Услуги</h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-      <div style="background: #111; border-radius: 10px; padding: 20px; text-align: center;">
-        <img src="bot.jpg" alt="Telegram-боты" style="width: 100%; border-radius: 8px;">
-        <p>Разработка Telegram-ботов любой сложности</p>
-        <a href="https://t.me/trokhimchuk_admin" target="_blank" style="display: inline-block; border: 2px solid #00ffff; color: #00ffff; background: transparent; font-weight: bold; padding: 10px 20px; border-radius: 30px; text-decoration: none; margin-top: 10px;">Заказать</a>
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="container">
+      <div class="sec-head">
+        <h2>Сервисы</h2>
+        <span class="kicker">корпоративный уровень</span>
       </div>
-      <div style="background: #111; border-radius: 10px; padding: 20px; text-align: center;">
-        <img src="ai.jpg" alt="AI-решения" style="width: 100%; border-radius: 8px;">
-        <p>AI-решения и нейросетевые инструменты</p>
-        <a href="https://t.me/trokhimchuk_admin" target="_blank" style="display: inline-block; border: 2px solid #00ffff; color: #00ffff; background: transparent; font-weight: bold; padding: 10px 20px; border-radius: 30px; text-decoration: none; margin-top: 10px;">Заказать</a>
+      <div class="cards">
+        <article class="card">
+          <h3>Проектирование и девелопмент</h3>
+          <p>Боты, веб‑сервисы, интеграции данных, наблюдаемость, CI/CD.</p>
+          <a href="#contact">Запросить оценку →</a>
+        </article>
+        <article class="card">
+          <h3>Аудит безопасности</h3>
+          <p>Политики, контроль доступа, журналирование, обучение, реагирование.</p>
+          <a href="#contact">Запланировать аудит →</a>
+        </article>
+        <article class="card">
+          <h3>Медиа‑операции</h3>
+          <p>Пайплайны контента, генерация, монтаж, автопостинг, метрики.</p>
+          <a href="#contact">Стартовать →</a>
+        </article>
       </div>
-      <div style="background: #111; border-radius: 10px; padding: 20px; text-align: center;">
-        <img src="automation.jpg" alt="Автоматизация" style="width: 100%; border-radius: 8px;">
-        <p>Автоматизация процессов под ключ</p>
-        <a href="https://t.me/trokhimchuk_admin" target="_blank" style="display: inline-block; border: 2px solid #00ffff; color: #00ffff; background: transparent; font-weight: bold; padding: 10px 20px; border-radius: 30px; text-decoration: none; margin-top: 10px;">Заказать</a>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="sec-head">
+        <h2>Контакты</h2>
+        <span class="kicker">связь 24/7</span>
       </div>
-      <div style="background: #111; border-radius: 10px; padding: 20px; text-align: center;">
-        <img src="privacy.jpg" alt="Анонимность" style="width: 100%; border-radius: 8px;">
-        <p>Системы цифровой анонимности</p>
-        <a href="https://t.me/trokhimchuk_admin" target="_blank" style="display: inline-block; border: 2px solid #00ffff; color: #00ffff; background: transparent; font-weight: bold; padding: 10px 20px; border-radius: 30px; text-decoration: none; margin-top: 10px;">Заказать</a>
+      <div class="cards">
+        <article class="card">
+          <h3>Связаться</h3>
+          <p>Оставьте заявку — вернёмся в течение 1–2 часов в рабочее время.</p>
+          <form onsubmit="event.preventDefault(); alert('Заявка отправлена. Мы свяжемся с вами.');">
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+              <input required placeholder="Имя" aria-label="Имя" style="padding:12px 14px; border-radius:12px; border:1px solid var(--card-brd); background: rgba(255,255,255,0.02); color:var(--fg);">
+              <input required type="email" placeholder="Email" aria-label="Email" style="padding:12px 14px; border-radius:12px; border:1px solid var(--card-brd); background: rgba(255,255,255,0.02); color:var(--fg);">
+            </div>
+            <textarea required placeholder="Коротко о задаче" aria-label="Сообщение" rows="4" style="margin-top:12px; width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--card-brd); background: rgba(255,255,255,0.02); color:var(--fg);"></textarea>
+            <button class="btn-primary" style="margin-top:10px;">Отправить</button>
+          </form>
+        </article>
+        <article class="card">
+          <h3>Реквизиты</h3>
+          <p>ООО «TROKHIMCHUK GROUP» — ИТ, автоматизация, кибербезопасность.</p>
+          <p style="color:var(--muted); font-size:13px;">Email: info@trokhimchuk.group<br>Telegram: @trokhimchuk_group<br>Сайт: trokhimchuk.ru</p>
+        </article>
+        <article class="card">
+          <h3>Служба безопасности</h3>
+          <p>Отчёты об инцидентах, нарушение доступа, компрометация.</p>
+          <a href="#" onclick="alert('Открыть форму инцидента');">Сообщить об инциденте →</a>
+        </article>
       </div>
     </div>
   </section>
 
-  <section id="visual">
-    <h2>Визуал и мерч</h2>
-    <div style="display: flex; flex-wrap: wrap; gap: 20px;">
-      <div style="flex: 1; min-width: 250px; background: #111; border-radius: 10px; padding: 20px; text-align: center;">
-        <img src="stickers.jpeg" alt="Стикеры" style="width: 100%; border-radius: 8px;">
-        <p>Фирменные стикеры для Telegram</p>
-        <a href="https://t.me/trokhimchuk_admin" target="_blank" style="display: inline-block; border: 2px solid #00ffff; color: #00ffff; background: transparent; font-weight: bold; padding: 10px 20px; border-radius: 30px; text-decoration: none; margin-top: 10px;">Заказать</a>
+  <footer>
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;">
+      <div class="brand">
+        <span class="top">TROKHIMCHUK</span>
+        <span class="bottom">GROUP</span>
       </div>
-      <div style="flex: 1; min-width: 250px; background: #111; border-radius: 10px; padding: 20px; text-align: center;">
-        <img src="merch.png" alt="Мерч" style="width: 100%; border-radius: 8px;">
-        <p>Фирменные худи и блокноты</p>
-        <a href="https://t.me/trokhimchuk_admin" target="_blank" style="display: inline-block; border: 2px solid #00ffff; color: #00ffff; background: transparent; font-weight: bold; padding: 10px 20px; border-radius: 30px; text-decoration: none; margin-top: 10px;">Заказать</a>
-      </div>
+      <div>© <span id="y"></span> TROKHIMCHUK GROUP. Все права защищены.</div>
     </div>
-    <!-- Превью товаров можно вставить позже -->
-  </section>
+  </footer>
 
-  <section id="community">
-    <h2>Сообщество</h2>
-    <p>Здесь будут публиковаться фото, активности TROKHIMCHUK GROUP.</p>
-  </section>
+  <script>
+    // Year auto
+    document.getElementById('y').textContent = new Date().getFullYear();
 
-  <section id="projects">
-    <h2>Проекты</h2>
-    <p style="max-width: 700px; margin: 0 auto; text-align: center;">
-      Все проекты TROKHIMCHUK GROUP выполняются в закрытом режиме. Подробности доступны только по индивидуальному запросу.
-    </p>
-    <div style="text-align: center; margin-top: 30px;">
-      <a href="https://t.me/trokhimchuk_admin" target="_blank" style="display: inline-block; border: 2px solid #00ffff; color: #00ffff; background: transparent; font-weight: bold; padding: 10px 20px; border-radius: 30px; text-decoration: none; margin-top: 10px;">Запросить доступ</a>
-    </div>
-  </section>
-    </div>
-  </section>
+    // Simple matrix effect (optimized)
+    const canvas = document.getElementById('matrix-bg');
+    const ctx = canvas.getContext('2d');
+    let w, h, cols, yPos, fontSize, chars;
 
-  <section id="contacts">
-    <h2>Контакты</h2>
-    <p>Email: <a href="mailto:info@trokhimchuk.ru">info@trokhimchuk.ru</a></p>
-    <p>Telegram: <a href="https://t.me/trokhimchuk_admin" target="_blank">@trokhimchuk_admin</a></p>
-    <p>Телефон: <a href="tel:+79308084404">+7 (930) 808-44-04</a></p>
-    <p>Адрес: Москва, ул. Дубининская, д. 53, офис 221</p>
-  </section>
+    const letters = 'アカサタナハマヤラワ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ∆Ωψ§≡<>/*';
 
-  <div class="footer">
-    © 2019–2025 TROKHIMCHUK GROUP — Все права защищены
-  </div>
+    function initMatrix() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+      fontSize = Math.max(14, Math.floor(w / 100));
+      cols = Math.floor(w / fontSize);
+      yPos = Array(cols).fill(0);
+      chars = letters.split('');
+      ctx.font = fontSize + 'px JetBrains Mono, monospace';
+    }
+
+    function draw() {
+      // semi-transparent background to create fade
+      ctx.fillStyle = 'rgba(11, 15, 20, 0.08)';
+      ctx.fillRect(0, 0, w, h);
+
+      for (let i = 0; i < cols; i++) {
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        const x = i * fontSize;
+        const y = yPos[i] * fontSize;
+        ctx.fillStyle = Math.random() > 0.975 ? '#00e5ff' : '#00ff9c';
+        ctx.fillText(text, x, y);
+
+        if (y > h && Math.random() > 0.975) yPos[i] = 0; else yPos[i]++;
+      }
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', initMatrix);
+    initMatrix();
+    requestAnimationFrame(draw);
+  </script>
 </body>
 </html>
