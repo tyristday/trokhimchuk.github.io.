@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="glow" cx="78%" cy="40%" r="55%">
+      <stop offset="0" stop-color="#bfa36b" stop-opacity=".18"/>
+      <stop offset=".75" stop-color="#11110f" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 .09 0"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="#11110f"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <rect width="1200" height="630" filter="url(#grain)" opacity=".65"/>
+  <line x1="50" y1="55" x2="1150" y2="55" stroke="#eeeae0" stroke-opacity=".14"/>
+  <line x1="50" y1="575" x2="1150" y2="575" stroke="#eeeae0" stroke-opacity=".14"/>
+  <circle cx="948" cy="315" r="205" fill="none" stroke="#d2bd91" stroke-opacity=".18"/>
+  <circle cx="948" cy="315" r="145" fill="none" stroke="#d2bd91" stroke-opacity=".38"/>
+  <line x1="948" y1="110" x2="948" y2="520" stroke="#d2bd91" stroke-opacity=".28"/>
+  <path d="M948 245v140M927 270h42M907 300h82M918 340l60 14" fill="none" stroke="#d2bd91" stroke-width="2"/>
+  <circle cx="80" cy="92" r="25" fill="none" stroke="#bfa36b"/>
+  <text x="80" y="97" fill="#d2bd91" font-family="Georgia, serif" font-size="13" text-anchor="middle">АТ</text>
+  <text x="120" y="97" fill="#eeeae0" font-family="Arial, sans-serif" font-size="12" font-weight="600" letter-spacing="2">ВЕРА · СПОРТ · ДИСЦИПЛИНА</text>
+  <text x="70" y="255" fill="#eeeae0" font-family="Georgia, serif" font-size="86">Андрей</text>
+  <text x="70" y="350" fill="#d2bd91" font-family="Georgia, serif" font-size="90" font-style="italic">Трохимчук</text>
+  <text x="74" y="417" fill="#eeeae0" font-family="Arial, sans-serif" font-size="22">Православие и спорт</text>
+  <text x="74" y="462" fill="#aaa79f" font-family="Arial, sans-serif" font-size="15">Студент МДА · пауэрлифтер · автор проекта</text>
+  <text x="948" y="90" fill="#d2bd91" font-family="Georgia, serif" font-size="18" text-anchor="middle">дух</text>
+  <text x="742" y="335" fill="#d2bd91" font-family="Georgia, serif" font-size="18">душа</text>
+  <text x="1110" y="335" fill="#d2bd91" font-family="Georgia, serif" font-size="18">тело</text>
+  <text x="70" y="606" fill="#aaa79f" font-family="Arial, sans-serif" font-size="10" letter-spacing="2">TROKHIMCHUK.RU</text>
+</svg>
